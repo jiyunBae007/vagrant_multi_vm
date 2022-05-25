@@ -10,10 +10,12 @@ echo $_POST['last'];
 
 $username = 'root';
 $password = 'rootpass';
-$dsn = 'mysql:host=192.168.3.6;dbname=formresponses';
+$dsnA = 'mysql:host=192.168.3.6;dbname=formresponses';
+$dsnB = 'mysql:host=192.168.3.7;dbname=formresponses';
 
 try{
-	$db = new PDO($dsn, $username, $password);
+# 데이터베이스 서버1과 데이터베이스 서버2 동시에 데이터를 
+	$db = new PDO($dsnA, $username, $password);
 	$result=FALSE;
 
 	if($_POST['first']!=null && $_POST['last']!=null && $_POST['email']!=null)
@@ -23,6 +25,18 @@ try{
 		$email=filter_var(trim($_POST['email']),FILTER_SANITIZE_EMAIL);
 		if(validSubmission($first,$last,$email))
 			$result=insertInfo($db,$first,$last,$email);
+	}
+	
+	$db2 = new PDO($dsnB, $username, $password);
+	$result2=FALSE;
+
+	if($_POST['first']!=null && $_POST['last']!=null && $_POST['email']!=null)
+	{
+		$first=filter_var(trim($_POST['first']),FILTER_SANITIZE_SPECIAL_CHARS);
+		$last=filter_var(trim($_POST['last']),FILTER_SANITIZE_SPECIAL_CHARS);
+		$email=filter_var(trim($_POST['email']),FILTER_SANITIZE_EMAIL);
+		if(validSubmission($first,$last,$email))
+			$result2=insertInfo($db2,$first,$last,$email);
 	}
 
 } catch(PDOException $ex) {
