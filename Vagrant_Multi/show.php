@@ -1,5 +1,6 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set("display_errors",1);
 
 $username = 'root';
 $password = 'rootpass';
@@ -33,13 +34,12 @@ try{
 
         //printf("{$row['firstname']} {$row['secondname']} {$row['email']}\n");
     }
-
-#데이터베이스 서버1이 고장나더라도 데이터베이스 서버2를 기반으로 서비스 운영을 가능하게 함
 } catch(PDOException $ex) { 
 	echo $ex->getMessage();
-	
+	#데이터베이스 서버1이 고장나더라도 데이터베이스 서버2를 기반으로 서비스 운영을 가능하게 함
+	try{	
 	$db2 = new PDO($dsnB, $username, $password);
-	$result2=FALSE;
+	$result2 =FALSE;
 
     $query = "SELECT * FROM response";
 
@@ -60,9 +60,10 @@ try{
         echo "<td>".$row['firstname']."</td>";
         echo "<td>".$row['lastname']."</td>";
         echo "<td>".$row['email']."</td>";
-        echo "</tr>";
-
-        //printf("{$row['firstname']} {$row['secondname']} {$row['email']}\n");
+        echo "</tr>";}
+	} catch(PDOException $ex){
+		echo $ex->getMessage();
+	}
 }
 
 echo "</table>";
