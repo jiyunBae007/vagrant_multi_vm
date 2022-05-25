@@ -26,7 +26,12 @@ try{
 		if(validSubmission($first,$last,$email))
 			$result=insertInfo($db,$first,$last,$email);
 	}
-	
+
+} catch(PDOException $ex) {
+	echo $ex->getMessage();
+}
+
+try{
 	$db2 = new PDO($dsnB, $username, $password);
 	$result2=FALSE;
 
@@ -38,8 +43,7 @@ try{
 		if(validSubmission($first,$last,$email))
 			$result2=insertInfo($db2,$first,$last,$email);
 	}
-
-} catch(PDOException $ex) {
+}catch(PDOException $ex) {
 	echo $ex->getMessage();
 }
 
