@@ -13,8 +13,8 @@ $password = 'rootpass';
 $dsnA = 'mysql:host=192.168.3.6;dbname=formresponses';
 $dsnB = 'mysql:host=192.168.3.7;dbname=formresponses';
 
-try{
 # 데이터베이스 서버1과 데이터베이스 서버2 동시에 데이터를 
+try{
 	$db = new PDO($dsnA, $username, $password);
 	$result=FALSE;
 
