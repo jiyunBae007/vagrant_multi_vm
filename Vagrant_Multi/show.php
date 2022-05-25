@@ -34,7 +34,7 @@ try{
         //printf("{$row['firstname']} {$row['secondname']} {$row['email']}\n");
     }
 
-#database1이 고장나더라도 database2 server를 기반으로 서비스 운영을 가능하게 함
+#데이터베이스 서버1이 고장나더라도 데이터베이스 서버2를 기반으로 서비스 운영을 가능하게 함
 } catch(PDOException $ex) {  
 	$db = new PDO($dsnB, $username, $password);
 	$result=FALSE;
