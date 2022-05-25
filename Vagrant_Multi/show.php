@@ -37,6 +37,7 @@ try{
 } catch(PDOException $ex) { 
 	echo $ex->getMessage();
 	#데이터베이스 서버1이 고장나더라도 데이터베이스 서버2를 기반으로 서비스 운영을 가능하게 함
+
 	try{	
 	$db2 = new PDO($dsnB, $username, $password);
 	$result2 =FALSE;
